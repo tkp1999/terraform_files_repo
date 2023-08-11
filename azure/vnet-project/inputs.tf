@@ -27,3 +27,66 @@ variable "subnet_names" {
   description = "These are subnet names"
 
 }
+variable "network_security_group_config" {
+  type = object({
+    name = string
+    rule = list(object({
+      name                       = string
+      protocol                   = string
+      source_address_prefix      = string
+      source_port_range          = string
+      destination_port_range     = string
+      priority                   = string
+      access                     = string
+      direction                  = string
+      destination_address_prefix = string
+    }))
+  })
+  default = {
+    name = "webnsg"
+    rule = [{
+      name                       = "openhttp"
+      protocol                   = "Tcp"
+      source_address_prefix      = "*"
+      source_port_range          = "*"
+      destination_port_range     = "80"
+      direction                  = "Inbound"
+      priority                   = "300"
+      access                     = "Allow"
+      destination_address_prefix = "*"
+    }]
+  }
+
+}
+
+variable "appnsg_config" {
+  type = object({
+    name = string
+    rule = list(object({
+      name                       = string
+      protocol                   = string
+      source_address_prefix      = string
+      source_port_range          = string
+      destination_port_range     = string
+      priority                   = string
+      access                     = string
+      direction                  = string
+      destination_address_prefix = string
+    }))
+  })
+  default = {
+    name = "webnsg"
+    rule = [{
+      name                       = "openhttp"
+      protocol                   = "Tcp"
+      source_address_prefix      = "*"
+      source_port_range          = "*"
+      destination_port_range     = "80"
+      direction                  = "Inbound"
+      priority                   = "300"
+      access                     = "Allow"
+      destination_address_prefix = "*"
+    }]
+  }
+
+}
