@@ -4,13 +4,14 @@ resource "aws_vpc" "ntier-vpc" {
     Name = local.name
   }
 }
-resource "aws_subnet" "web1-subnet" {
+
+resource "aws_subnet" "subnets" {
+  count      = var.subnet_count
   vpc_id     = aws_vpc.ntier-vpc.id
-  cidr_block = var.web1-subnet-cidr
+  cidr_block = var.subnet_cidr_ranges[count.index]
   tags = {
-    Name = "web1"
+    Name = var.subnet_names[count.index]
   }
-  depends_on = [
-    aws_vpc.ntier-vpc
-  ]
+  depends_on = [aws_vpc.ntier-vpc]
 }
+
