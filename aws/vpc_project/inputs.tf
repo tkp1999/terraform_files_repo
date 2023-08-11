@@ -11,12 +11,15 @@ variable "subnet_cidr_ranges" {
   description = "this is subnet cidr ranges"
 }
 */
+
+/*
 variable "subnet_format" {
-  type = string
-  default = "10.10.%g.0/24"
+  type        = string
+  default     = "10.10.%g.0/24"
   description = "This variable i have used to define subnet format"
-  
+
 }
+*/
 variable "subnet_names" {
   type        = list(string)
   default     = ["web1", "web2", "app1", "app2", "db1", "db2"]

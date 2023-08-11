@@ -10,11 +10,11 @@ resource "azurerm_virtual_network" "ntier_vnet_azure" {
 
 }
 resource "azurerm_subnet" "subnets" {
-  count                = length(var.subnet_ranges)
+  count                = length(var.subnet_names)
   resource_group_name  = azurerm_resource_group.ntierazure.name
   virtual_network_name = azurerm_virtual_network.ntier_vnet_azure.name
   #get the address prefixes based on count from variiable
-  address_prefixes = [var.subnet_ranges[count.index]]
+  address_prefixes = [cidrsubnet(var.network_range,8,count.index)]
   #get the subnet names based on count from variable
   name = var.subnet_names[count.index]
   depends_on = [

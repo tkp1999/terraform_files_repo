@@ -6,13 +6,14 @@ resource "aws_vpc" "ntier-vpc" {
 }
 
 resource "aws_subnet" "subnets" {
-  count = length(var.subnet_names)
+  count  = length(var.subnet_names)
   vpc_id = aws_vpc.ntier-vpc.id
   tags = {
     Name = var.subnet_names[count.index]
   }
-  cidr_block = format(var.subnet_format,count.index)
-  depends_on = [ aws_vpc.ntier-vpc ]
+  //cidr_block = format(var.subnet_format, count.index)
+  cidr_block = cidrsubnet(var.vpc_network_cidr, 8, count.index)
+  depends_on = [aws_vpc.ntier-vpc]
   /*
   count      = var.subnet_count
   vpc_id     = aws_vpc.ntier-vpc.id
