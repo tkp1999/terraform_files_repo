@@ -24,4 +24,10 @@ resource "aws_subnet" "subnets" {
   depends_on = [aws_vpc.ntier-vpc]
   */
 }
+data "aws_route_table" "default" {
+  vpc_id = aws_vpc.ntier-vpc.id
+  depends_on = [
+    aws_vpc.ntier-vpc
+  ]
+}
 

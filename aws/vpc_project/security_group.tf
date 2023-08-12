@@ -7,16 +7,16 @@ resource "aws_security_group" "websg" {
   ]
 }
 resource "aws_security_group_rule" "websg_rules" {
-  count = length(var.websg_config.rules)
+  count             = length(var.websg_config.rules)
   security_group_id = aws_security_group.websg.id
-  type = var.websg_config.rules[count.index].type
-  from_port = var.websg_config.rules[count.index].from_port
-  to_port = var.websg_config.rules[count.index].to_port
-  protocol = var.websg_config.rules[count.index].protocol
-  cidr_blocks = [var.websg_config.rules[count.index].cidr_block]
-  depends_on = [ 
+  type              = var.websg_config.rules[count.index].type
+  from_port         = var.websg_config.rules[count.index].from_port
+  to_port           = var.websg_config.rules[count.index].to_port
+  protocol          = var.websg_config.rules[count.index].protocol
+  cidr_blocks       = [var.websg_config.rules[count.index].cidr_block]
+  depends_on = [
     aws_security_group.websg
-     ]
+  ]
 }
 
 
@@ -29,16 +29,16 @@ resource "aws_security_group" "appsg" {
   ]
 }
 resource "aws_security_group_rule" "appsg_rules" {
-  count = length(var.appsg_config.rules)
+  count             = length(var.appsg_config.rules)
   security_group_id = aws_security_group.appsg.id
-  type = var.appsg_config.rules[count.index].type
-  from_port = var.appsg_config.rules[count.index].from_port
-  to_port = var.appsg_config.rules[count.index].to_port
-  protocol = var.appsg_config.rules[count.index].protocol
-  cidr_blocks = [var.appsg_config.rules[count.index].cidr_block]
-  depends_on = [ 
+  type              = var.appsg_config.rules[count.index].type
+  from_port         = var.appsg_config.rules[count.index].from_port
+  to_port           = var.appsg_config.rules[count.index].to_port
+  protocol          = var.appsg_config.rules[count.index].protocol
+  cidr_blocks       = [var.appsg_config.rules[count.index].cidr_block]
+  depends_on = [
     aws_security_group.appsg
-     ]
+  ]
 }
 
 resource "aws_security_group" "dbsg" {
@@ -50,16 +50,16 @@ resource "aws_security_group" "dbsg" {
   ]
 }
 resource "aws_security_group_rule" "dbsg_rules" {
-  count = length(var.dbsg_config.rules)
+  count             = length(var.dbsg_config.rules)
   security_group_id = aws_security_group.dbsg.id
-  type = var.dbsg_config.rules[count.index].type
-  from_port = var.dbsg_config.rules[count.index].from_port
-  to_port = var.dbsg_config.rules[count.index].to_port
-  protocol = var.dbsg_config.rules[count.index].protocol
-  cidr_blocks  = [var.dbsg_config.rules[count.index].cidr_block]
-  depends_on = [ 
+  type              = var.dbsg_config.rules[count.index].type
+  from_port         = var.dbsg_config.rules[count.index].from_port
+  to_port           = var.dbsg_config.rules[count.index].to_port
+  protocol          = var.dbsg_config.rules[count.index].protocol
+  cidr_blocks       = [var.dbsg_config.rules[count.index].cidr_block]
+  depends_on = [
     aws_security_group.dbsg
-     ]
+  ]
 }
 
 /*
