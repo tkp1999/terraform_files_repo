@@ -33,4 +33,75 @@ variable "subnet_count" {
 
 }
 */
+variable "websg_config" {
+  type = object({
+    name = string
+    description = string
+    rules = list(object({
+      type = string
+      from_port = string
+      to_port = string
+      protocol = string
+      cidr_block = string
 
+    })) 
+  })
+  description = "This is web security group"
+  default = {
+    name = "websg"
+    description = "This is web security group"
+    rules = [ {
+      type = "ingress"
+      from_port = 80
+      to_port = 80
+      protocol = "tcp"
+      cidr_block = "0.0.0.0/0"
+    },
+    {
+      type = "ingress"
+      from_port = 22
+      to_port = 22
+      protocol = "tcp"
+      cidr_block = "0.0.0.0/0"
+    },
+    {
+      type = "egress"
+      from_port = 0
+      to_port = 65535
+      protocol = "-1"
+      cidr_block = "0.0.0.0/0"
+    }  ]
+  }
+  
+}
+
+variable "appsg_config" {
+  type = object({
+    name = string
+    description = string
+    rules = list(object({
+      type = string
+      from_port = string
+      to_port = string
+      protocol = string
+      cidr_block = string
+
+    })) 
+  })
+  description = "This is app security group config"
+}
+variable "dbsg_config" {
+  type = object({
+    name = string
+    description = string
+    rules = list(object({
+      type = string
+      from_port = string
+      to_port = string
+      protocol = string
+      cidr_block = string
+
+    })) 
+  })
+  description = "This is db security group config"
+}
