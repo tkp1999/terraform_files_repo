@@ -15,7 +15,7 @@ resource "aws_subnet" "subnets" {
   cidr_block = cidrsubnet(var.vpc_network_cidr, 8, count.index)
   depends_on = [aws_vpc.ntier-vpc]
   /*
-  count      = var.subnet_count
+ # count      = var.subnet_count
   vpc_id     = aws_vpc.ntier-vpc.id
   cidr_block = var.subnet_cidr_ranges[count.index]
   tags = {
