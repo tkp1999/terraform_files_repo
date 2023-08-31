@@ -1,7 +1,7 @@
 parameters:
  - name: javaVersion
    type: string
-   default: '1.11'
+   default: '1.17'
  - name: mavenGoal
    type: string
    default: package
@@ -19,12 +19,12 @@ steps:
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
       javaHomeOption: 'JDKVersion'
-      jdkVersionOption: '1.8'
+      jdkVersionOption: ${{ parameters.javaVersion }}
   - task: CopyFiles@2
     inputs: 
-      Contents: "**/target/gameoflife.war"
+      Contents: ${{ parameters.artifactPath }}
       TargetFolder: $(Build.ArtifactStagingDirectory)
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: $(Build.ArtifactStagingDirectory)
-      ArtifactName: Game of life artifacts
+      ArtifactName: ${{ parameters.artifactName }}
