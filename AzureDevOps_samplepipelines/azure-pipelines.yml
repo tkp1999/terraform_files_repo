@@ -2,6 +2,20 @@
 ---
   trigger:
     - master
+  variables:
+    goals: package
+  
+  parameters:
+    - name: MavenGoal
+      displayName: MavenGoal
+      type: string 
+      default: package
+      values:
+        - package
+        - clean package
+        - install
+        - clean install
+  
   jobs:
     - job: build_job 
       displayName:  Buld and package game of life
@@ -11,7 +25,7 @@
         - task: Maven@3
           inputs: 
             mavenPOMFile: 'pom.xml'
-            goals: 'package'
+            goals: ${{ parameters.MavenGoal }}
             publishJUnitResults: true
             testResultsFiles: '**/surefire-reports/TEST-*.xml'
             javaHomeOption: 'JDKVersion'
