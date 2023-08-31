@@ -1,0 +1,28 @@
+##microsoft hosted agent and have issue with build artifacts 
+---
+  trigger:
+    - master
+  jobs:
+    - job: build_job 
+      displayName:  Buld and package game of life
+      pool: 
+        vmImage: ubuntu-22.04
+      steps:
+        - task: Maven@3
+          inputs: 
+            mavenPOMFile: 'pom.xml'
+            goals: 'package'
+            publishJUnitResults: true
+            testResultsFiles: '**/surefire-reports/TEST-*.xml'
+            javaHomeOption: 'JDKVersion'
+            jdkVersionOption: '1.8'
+        - task: CopyFiles@2
+          inputs: 
+            Contents: "**/target/gameoflife.war"
+            TargetFolder: $(Build.ArtifactStagingDirectory)
+        - task: PublishBuildArtifacts@1
+          inputs:
+            PathtoPublish: $(Build.ArtifactStagingDirectory)
+            ArtifactName: Game of life artifacts
+    
+
