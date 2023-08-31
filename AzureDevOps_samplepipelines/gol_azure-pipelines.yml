@@ -1,0 +1,17 @@
+---
+  trigger:
+    - master
+  jobs:
+    - job: build_job 
+      displayName:  Buld and package game of life
+      pool: 
+        vmImage: ubuntu-22.04
+      steps:
+        - task: Maven@3
+          inputs: 
+            mavenPOMFile: 'pom.xml'
+            goals: 'package'
+            publishJUnitResults: true
+            testResultsFiles: '**/surefire-reports/TEST-*.xml'
+            javaHomeOption: 'JDKVersion'
+            jdkVersionOption: '1.8'

@@ -1,0 +1,26 @@
+---
+  trigger:
+    - main
+  
+  pool:
+    name: Default
+  
+  stages:
+    - stage: stage1
+      displayName: This is stage1
+      pool: Default
+      jobs:
+        - job: job1
+          displayName: job1
+          pool: Default
+          steps:
+            - task: Maven@3
+              displayName: Task 1
+              inputs: 
+                mavenPOMFile: 'pom.xml'
+                goals: package
+                publishJUnitResults: true
+                testResultsFiles: '**/surefire-reports/TEST-*.xml'
+                testRunTitle: 'unit tests'
+
+       
