@@ -1,0 +1,30 @@
+parameters:
+ - name: javaVersion
+   type: string
+   default: '1.11'
+ - name: mavenGoal
+   type: string
+   default: package
+ - name: artifactPath
+   type: string
+   default: '**/*.jar'
+ - name: artifactName
+   type: string
+   default: generic
+steps:
+  - task: Maven@3
+    inputs: 
+      mavenPOMFile: 'pom.xml'
+      goals: ${{ parameters.MavenGoal }}
+      publishJUnitResults: true
+      testResultsFiles: '**/surefire-reports/TEST-*.xml'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '1.8'
+  - task: CopyFiles@2
+    inputs: 
+      Contents: "**/target/gameoflife.war"
+      TargetFolder: $(Build.ArtifactStagingDirectory)
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: $(Build.ArtifactStagingDirectory)
+      ArtifactName: Game of life artifacts

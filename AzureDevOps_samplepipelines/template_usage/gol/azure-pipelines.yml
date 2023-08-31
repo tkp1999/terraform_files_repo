@@ -1,0 +1,18 @@
+##microsoft hosted agent and have issue with build artifacts 
+---
+  trigger:
+    - master
+  
+  pool: 
+    vmImage: ubuntu-22.04
+
+  extends:
+    template: generic-maven-java.yml
+    parameters:
+      javaVersion: '1.8'
+      mavenGoal: 'package'
+      artifactPath: '**/target/gameoflife.war'
+      artifactName: 'GameOflifeArtifacts'
+
+    
+
